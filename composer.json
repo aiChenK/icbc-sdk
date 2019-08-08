@@ -1,0 +1,21 @@
+{
+    "name": "aichenk/icbc-sdk",
+    "description": "ICBC Finance Services SDK",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chen Kai",
+            "email": "aichenk@qq.com"
+        }
+    ],
+    "require": {
+        "aichenk/http-client": "^1.0",
+        "php": ">=5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Icbc\\" : "src/"
+        }
+    }
+}
