@@ -6,14 +6,14 @@
  * Time: 14:00
  */
 
-//priKey pubKey 仅支持完整格式字符串
-
 $appId  = '';
 $corpNo = '';
 $apiUrl = '';
 $priKey = "-----BEGIN RSA PRIVATE KEY-----
 
 -----END RSA PRIVATE KEY-----";
+//$priKey = 'path/xx.pem'
 $pubKey = "-----BEGIN PUBLIC KEY-----
 
 -----END PUBLIC KEY-----";
+//$pubKey = 'path/xx.pem'

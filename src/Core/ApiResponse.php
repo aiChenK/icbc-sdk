@@ -6,7 +6,7 @@
  * Time: 17:03
  */
 
-namespace Icbc;
+namespace Icbc\Core;
 
 class ApiResponse
 {
@@ -46,14 +46,11 @@ class ApiResponse
 
 //    public function checkSign()
 //    {
-//        //todo 更改
-//        $sign = base64_decode($this->sign);//base64解码加密信息
-//        $cer  = openssl_get_publickey($this->pubKey);
-////        $cer  = openssl_x509_read($this->pubKey); //读取公钥
-//        $res  = openssl_verify($this->signBlk, $sign, $cer); //验证
-//        //输出验证结果，1：验证成功，0：验证失败
-//        return !!$res;
+//        $sign = base64_decode($this->sign); //base64解码加密信息
+//        $res  = Key::getPublicKey($this->pubKey); //读取公钥
+//        return !!openssl_verify($this->signBlk, $sign, $res); //验证
 //    }
+
     public function getRspData()
     {
         return $this->rspData;

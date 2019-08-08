@@ -1,6 +1,6 @@
 <?php
 
-namespace Icbc;
+namespace Icbc\Core;
 
 class Constants
 {

@@ -9,6 +9,9 @@
 namespace Icbc;
 
 use HttpClient\Client;
+use Icbc\Core\ApiResponse;
+use Icbc\Core\Constants;
+use Icbc\Core\Key;
 
 class ApiClient
 {
@@ -25,7 +28,6 @@ class ApiClient
 
     public function __construct($apiUrl, $appId, $priKey, $pubKey)
     {
-        //todo 检查是否为路径
         $this->appId     = $appId;
         $this->priKey    = $priKey;
         $this->pubKey    = $pubKey;
@@ -139,7 +141,7 @@ class ApiClient
         $data = $this->toUrlParams($bodyParams);
 
         //进行rsa签名
-        $res = openssl_get_privatekey($this->priKey);
+        $res = Key::getPrivateKey($this->priKey);
         openssl_sign($data,$sign, $res);
         openssl_free_key($res);
         $sign = base64_encode($sign);
@@ -151,7 +153,7 @@ class ApiClient
     private function getFileSign($data)
     {
         //进行rsa签名
-        $res = openssl_get_privatekey($this->priKey);
+        $res = Key::getPrivateKey($this->priKey);
         openssl_sign($data,$sign, $res);
         openssl_free_key($res);
         $sign = base64_encode($sign);

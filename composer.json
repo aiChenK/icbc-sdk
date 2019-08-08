@@ -5,13 +5,13 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Chen Kai",
+            "name": "aiChenK",
             "email": "aichenk@qq.com"
         }
     ],
     "require": {
-        "aichenk/http-client": "^1.0",
-        "php": ">=5.5"
+        "php": ">=5.5",
+        "aichenk/http-client": "^1.0"
     },
     "autoload": {
         "psr-4": {
