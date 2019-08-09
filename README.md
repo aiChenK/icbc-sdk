@@ -3,14 +3,14 @@
 实现快速调用，传入私钥即可对请求进行签名
 
 ## 运行环境
-- PHP 5.4+
-- cURL extension
+- PHP 5.5+
+- openssl extension
 - aichenk/http-client ^1.0
 
 ## 安装方法
 1. 根目录运行
 
-        composer require aliyuncs/oss-sdk-php
+        composer require aichenk/icbc-sdk
         
 2. 在`composer.json`中声明
 
@@ -46,6 +46,8 @@ var_dump($response->getData());
 ```
 
 ## 更新日志
+2019-08-09 - v1.1.1
+- 更新说明内容
 2019-08-08 - v1.1.0
 - 更改目录结构
 - 增加Key类，支持密钥文件解析（pem,cer）

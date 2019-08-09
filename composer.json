@@ -1,6 +1,6 @@
 {
     "name": "aichenk/icbc-sdk",
-    "description": "ICBC Finance Services SDK",
+    "description": "ICBC Financial Services SDK",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -11,6 +11,7 @@
     ],
     "require": {
         "php": ">=5.5",
+        "ext-openssl": "*",
         "aichenk/http-client": "^1.0"
     },
     "autoload": {
