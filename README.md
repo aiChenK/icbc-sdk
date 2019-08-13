@@ -3,7 +3,7 @@
 实现快速调用，传入私钥即可对请求进行签名
 
 ## 运行环境
-- PHP 5.5+
+- PHP 5.6+
 - openssl extension
 - aichenk/http-client ^1.0
 
@@ -24,8 +24,8 @@
 $appId  = '';
 $corpNo = '';
 $apiUrl = '';
-$priKey = "./pri.pem"; //或私钥内容
-$pubKey = "./pub.pem";
+$priKey = "./pri.pem"; //文件地址或字符串内容
+$pubKey = "./pub.cer"; //支持字符串/cer/pem，可不传入，不传入则不对内容验签
  
 //初始化
 $apiClient = new \Icbc\ApiClient($apiUrl, $appId, $priKey, $pubKey);
@@ -46,12 +46,15 @@ var_dump($response->getData());
 ```
 
 ## 更新日志
+2019-08-13 - v1.2.0
+- pubKey可选，如传入则针对返回内容验签
+- pubKey支持字符串，pem/cer格式文件路径，自动解析
+- 增加Exception类
+- php版本要求增加到5.6
+
 2019-08-09 - v1.1.1
 - 更新说明内容
 
 2019-08-08 - v1.1.0
 - 更改目录结构
 - 增加Key类，支持密钥文件解析（pem,cer）
-
-## 待增加内容
-- 针对返回内容验签

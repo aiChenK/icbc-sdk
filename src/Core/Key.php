@@ -8,12 +8,16 @@
 
 namespace Icbc\Core;
 
+use Icbc\Exception\KeyException;
+
 class Key
 {
     const PRIVATE_KEY_BEGIN = '-----BEGIN RSA PRIVATE KEY-----' . PHP_EOL;
     const PRIVATE_KEY_END   = '-----END RSA PRIVATE KEY-----' . PHP_EOL;
     const PUBLIC_KEY_BEGIN  = '-----BEGIN PUBLIC KEY-----' . PHP_EOL;
     const PUBLIC_KEY_END    = '-----END PUBLIC KEY-----' . PHP_EOL;
+    const X509_KEY_BEGIN    = '-----BEGIN CERTIFICATE-----' . PHP_EOL;
+    const X509_KEY_END      = '-----END CERTIFICATE-----' . PHP_EOL;
 
     /**
      * 解析私钥
@@ -58,7 +62,7 @@ class Key
         if (strpos($key, '-----') === 0) {
             return $key;
         }
-        return $begin . chunk_split(str_replace(["\r\n", "\n"], ['', ''], trim($key)), 64, "\n") . $end;
+        return $begin . chunk_split(str_replace(["\r\n", "\n"], ['', ''], trim($key)), 64, PHP_EOL) . $end;
     }
 
     /**
@@ -75,9 +79,20 @@ class Key
             case 'pem':
                 return file_get_contents($file);
             case 'cer':
-                return openssl_x509_read(file_get_contents($file));
+                $cer = file_get_contents($file);
+                if (strpos($cer, '-----') !== 0) {
+                    $cer = self::X509_KEY_BEGIN .
+                        chunk_split(base64_encode($cer), 64, PHP_EOL) .
+                        self::X509_KEY_END;
+                }
+                return openssl_x509_read($cer);
             default:
-                throw new \Exception('暂不支持解析该密钥格式');
+                throw new KeyException('Analytic method to the key can not be supported now');
         }
+    }
+
+    private static function isBase64($str)
+    {
+        return $str == base64_encode(base64_decode($str));
     }
 }

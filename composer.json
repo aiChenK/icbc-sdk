@@ -1,8 +1,9 @@
 {
     "name": "aichenk/icbc-sdk",
-    "description": "ICBC Financial Services SDK",
+    "description": "ICBC 工商银行二类户金融服务接口sdk",
     "type": "library",
     "license": "MIT",
+    "keywords": ["icbc", "工商银行", "工行", "二类户"],
     "authors": [
         {
             "name": "aiChenK",
@@ -10,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=5.5",
+        "php": ">=5.6",
         "ext-openssl": "*",
         "aichenk/http-client": "^1.0"
     },

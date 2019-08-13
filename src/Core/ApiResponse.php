@@ -8,6 +8,8 @@
 
 namespace Icbc\Core;
 
+use Icbc\Exception\SignException;
+
 class ApiResponse
 {
 
@@ -19,15 +21,19 @@ class ApiResponse
 
     private $error = false;
     private $data  = [];
-    
-    private $pubKey;
 
-    public function __construct($body, $pubKey = '')
+    /**
+     * ApiResponse constructor.
+     * @param $body
+     * @param bool $pubKey
+     * @throws SignException
+     * @throws \Exception
+     */
+    public function __construct($body, $pubKey = false)
     {
         if (is_string($body)) {
             $body = json_decode($body, true);
         }
-        $this->pubKey  = $pubKey;
         $this->body    = $body;
         $this->rspData = $body[Constants::FN_RSP_DATA];
         $this->sign    = $body[Constants::FN_SIGN];
@@ -42,14 +48,26 @@ class ApiResponse
         } else {
             $this->data = $this->rspData['response'];
         }
+
+        //有公钥则验签
+        if ($pubKey) {
+            $this->checkSign($pubKey);
+        }
     }
 
-//    public function checkSign()
-//    {
-//        $sign = base64_decode($this->sign); //base64解码加密信息
-//        $res  = Key::getPublicKey($this->pubKey); //读取公钥
-//        return !!openssl_verify($this->signBlk, $sign, $res); //验证
-//    }
+    /**
+     * @param $pubKey
+     * @throws SignException
+     * @throws \Exception
+     */
+    private function checkSign($pubKey)
+    {
+        $sign = base64_decode($this->sign); //base64解码加密信息
+        $res  = Key::getPublicKey($pubKey); //读取公钥
+        if (openssl_verify($this->signBlk, $sign, $res) !== 1) {
+            throw new SignException('sign verify failed, pls recheck the public key');
+        }
+    }
 
     public function getRspData()
     {

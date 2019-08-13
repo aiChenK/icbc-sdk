@@ -12,6 +12,7 @@ use HttpClient\Client;
 use Icbc\Core\ApiResponse;
 use Icbc\Core\Constants;
 use Icbc\Core\Key;
+use Icbc\Exception\FileException;
 
 class ApiClient
 {
@@ -26,7 +27,7 @@ class ApiClient
     private $signType    = 'RSA';
     private $timestamp   = '';
 
-    public function __construct($apiUrl, $appId, $priKey, $pubKey)
+    public function __construct($apiUrl, $appId, $priKey, $pubKey = false)
     {
         $this->appId     = $appId;
         $this->priKey    = $priKey;
@@ -72,12 +73,13 @@ class ApiClient
      * @param $file
      * @param string $realName
      * @return ApiResponse
+     * @throws FileException
      * @throws \Exception
      */
     public function upload($file, $realName = '')
     {
         if (!file_exists($file)) {
-            throw new \Exception('文件不存在');
+            throw new FileException('File does not exist');
         }
         if (!$realName) {
             $realName = basename($file);
@@ -118,7 +120,12 @@ class ApiClient
         return $buff;
     }
 
-    //添加数据并签名
+    /**
+     * 添加数据并签名
+     *
+     * @param $apiName
+     * @throws \Exception
+     */
     private function setSign($apiName)
     {
         $this->addParams(Constants::FN_APP_ID, $this->appId);
@@ -130,7 +137,12 @@ class ApiClient
         $this->addParams(Constants::FN_SIGN, $this->getSign());
     }
 
-    //获取签名
+    /**
+     * 获取签名
+     *
+     * @return string
+     * @throws \Exception
+     */
     private function getSign()
     {
         $bodyParams = $this->getBodyParams();
@@ -149,7 +161,13 @@ class ApiClient
         return $sign;
     }
 
-    //获取文件签名
+    /**
+     * 获取文件签名
+     *
+     * @param $data
+     * @return string
+     * @throws \Exception
+     */
     private function getFileSign($data)
     {
         //进行rsa签名

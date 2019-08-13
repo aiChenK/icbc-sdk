@@ -13,7 +13,8 @@ $priKey = "-----BEGIN RSA PRIVATE KEY-----
 
 -----END RSA PRIVATE KEY-----";
 //$priKey = 'path/xx.pem'
-$pubKey = "-----BEGIN PUBLIC KEY-----
-
------END PUBLIC KEY-----";
+//$pubKey = "-----BEGIN PUBLIC KEY-----
+//
+//-----END PUBLIC KEY-----";
 //$pubKey = 'path/xx.pem'
+$pubKey = './pub_test.cer';
