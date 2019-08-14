@@ -11,11 +11,12 @@ date_default_timezone_set('PRC');
 include './config.php';
 
 $apiClient = new \Icbc\ApiClient($apiUrl, $appId, $priKey, $pubKey);
+$apiClient->setCorpNo($corpNo);
 
-$apiClient->addParams('corp_no', $corpNo)
-    ->addParams('busisno', '1')
+$apiClient->addParams('busisno', '1')
     ->addParams('cert_type', '0')
-    ->addParams('cert_no', 'xxxxxxxxx');
+//    ->addParams('corp_no', $corpNo) //setCorpNo后可省略
+    ->addParams('cert_no', 'xxxxxxx');
 
 $response = $apiClient->execute('com.icbc.eracct.predictimg');
 

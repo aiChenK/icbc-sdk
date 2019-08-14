@@ -29,9 +29,10 @@ $pubKey = "./pub.cer"; //支持字符串/cer/pem，可不传入，不传入则�
  
 //初始化
 $apiClient = new \Icbc\ApiClient($apiUrl, $appId, $priKey, $pubKey);
+$apiClient->setCorpNo($corpNo);
  
-$apiClient->addParams('corp_no', $corpNo)
-    ->addParams('busisno', '1')
+$apiClient->addParams('busisno', '1')
+    //->addParams('corp_no', $corpNo)
     ->addParams('cert_type', '0')
     ->addParams('cert_no', 'xxx');
     
@@ -50,6 +51,10 @@ var_dump($response->getData());
 ```
 
 ## 更新日志
+2019-08-15 - v1.2.2
+- 增加setCorpNo|getCorpNo方法
+- 初始化corpNo后不在需要每个请求单独增加corp_no参数
+
 2019-08-14 - v1.2.1
 - 修复请求错误时验签的bug
 - 请求结束后清空params，可复用ApiClient调用下一请求

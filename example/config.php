@@ -7,7 +7,6 @@
  */
 
 $appId  = '';
-$corpNo = '';
 $apiUrl = '';
 $priKey = "-----BEGIN RSA PRIVATE KEY-----
 
@@ -18,3 +17,5 @@ $priKey = "-----BEGIN RSA PRIVATE KEY-----
 //-----END PUBLIC KEY-----";
 //$pubKey = 'path/xx.pem'
 $pubKey = './pub_test.cer';
+
+$corpNo = '';

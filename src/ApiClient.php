@@ -22,6 +22,7 @@ class ApiClient
 
     private $bodyParams  = [];
     private $appId;
+    private $corpNo      = false;
     private $apiVersion  = '1.0';
     private $formatType  = 'json';
     private $signType    = 'RSA';
@@ -45,6 +46,18 @@ class ApiClient
         ]);
     }
 
+    //默认添加corp_no参数
+    public function setCorpNo($corpNo)
+    {
+        $this->corpNo = $corpNo;
+        return $this;
+    }
+
+    public function getCorpNo()
+    {
+        return $this->corpNo;
+    }
+
     //添加参数
     public function addParams($key, $value)
     {
@@ -62,7 +75,7 @@ class ApiClient
     public function execute($apiName)
     {
         $this->setSign($apiName);
-        $data = $this->httpClient->post($apiName, $this->bodyParams)->getBody();
+        $data = $this->httpClient->post($apiName, $this->getBodyParams())->getBody();
         $this->clearParams();
         return new ApiResponse($data, $this->pubKey);
     }
@@ -104,7 +117,7 @@ class ApiClient
 
     private function getBodyParams()
     {
-        return $this->bodyParams;
+        return $this->corpNo ? array_merge(['corp_no' => $this->corpNo], $this->bodyParams) : $this->bodyParams;
     }
 
     private function toUrlParams($array)
