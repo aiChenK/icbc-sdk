@@ -63,7 +63,7 @@ class ApiClient
     {
         $this->setSign($apiName);
         $data = $this->httpClient->post($apiName, $this->bodyParams)->getBody();
-
+        $this->clearParams();
         return new ApiResponse($data, $this->pubKey);
     }
 
@@ -98,7 +98,7 @@ class ApiClient
 
         $path = Constants::API_UPLOAD_PREFIX . '/' .Constants::FN_UPLOAD_FILE_API . '?' . http_build_query($this->getBodyParams());
         $data = $this->httpClient->post($path, $fileData, false)->getBody();
-
+        $this->clearParams();
         return new ApiResponse($data, $this->pubKey);
     }
 
@@ -177,5 +177,10 @@ class ApiClient
         $sign = base64_encode($sign);
 
         return $sign;
+    }
+
+    private function clearParams()
+    {
+        $this->bodyParams = [];
     }
 }

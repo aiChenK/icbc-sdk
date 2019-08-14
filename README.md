@@ -40,12 +40,20 @@ $response = $apiClient->execute('com.icbc.xxxxx');
 //文件上传
 $response = $apiClient->upload('./touxiang.png');
  
+
 //获取结果
+if (!$response->isSuccess()) {
+    throw new \Exception($response->getError());
+}
 //var_dump($response->getRspData());
 var_dump($response->getData());
 ```
 
 ## 更新日志
+2019-08-14 - v1.2.1
+- 修复请求错误时验签的bug
+- 请求结束后清空params，可复用ApiClient调用下一请求
+
 2019-08-13 - v1.2.0
 - pubKey可选，如传入则针对返回内容验签
 - pubKey支持字符串，pem/cer格式文件路径，自动解析

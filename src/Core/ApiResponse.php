@@ -47,11 +47,10 @@ class ApiResponse
             $this->error = $this->rspData['hostRspMsg'];
         } else {
             $this->data = $this->rspData['response'];
-        }
-
-        //有公钥则验签
-        if ($pubKey) {
-            $this->checkSign($pubKey);
+            //有公钥则验签
+            if ($pubKey) {
+                $this->checkSign($pubKey);
+            }
         }
     }
 
