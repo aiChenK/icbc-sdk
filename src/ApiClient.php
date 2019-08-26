@@ -46,6 +46,11 @@ class ApiClient
         ]);
     }
 
+    public function getAppId()
+    {
+        return $this->appId;
+    }
+
     //默认添加corp_no参数
     public function setCorpNo($corpNo)
     {

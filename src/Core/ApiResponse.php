@@ -38,7 +38,12 @@ class ApiResponse
         $this->rspData = $body[Constants::FN_RSP_DATA];
         $this->sign    = $body[Constants::FN_SIGN];
         $this->certId  = $body[Constants::FN_CERT_ID];
-        $this->signBlk = json_encode($this->rspData,JSON_UNESCAPED_UNICODE);
+
+        $rspData = $this->rspData;
+        if (!$rspData['response']) {
+            $rspData['response'] = new \ArrayObject();
+        }
+        $this->signBlk = json_encode($rspData,JSON_UNESCAPED_UNICODE);
 
         //解析内容
         if ($this->rspData['ICBC_API_RETCODE'] != 0) {
