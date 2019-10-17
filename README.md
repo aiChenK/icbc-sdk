@@ -51,6 +51,9 @@ var_dump($response->getData());
 ```
 
 ## 更新日志
+2019-10-17 - v1.3.0
+- http-client库升级到2.0
+
 2019-08-26 - v1.2.3
 - 修复当response为空时验签失败bug
 - 增加getAppId方法（即"一级机构商户号"）

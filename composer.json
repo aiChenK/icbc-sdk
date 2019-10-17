@@ -13,7 +13,7 @@
     "require": {
         "php": ">=5.6",
         "ext-openssl": "*",
-        "aichenk/http-client": "^1.0"
+        "aichenk/http-client": "^2.0"
     },
     "autoload": {
         "psr-4": {

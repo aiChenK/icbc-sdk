@@ -8,7 +8,7 @@
 
 namespace Icbc;
 
-use HttpClient\Client;
+use HttpClient\HttpClient;
 use Icbc\Core\ApiResponse;
 use Icbc\Core\Constants;
 use Icbc\Core\Key;
@@ -35,15 +35,15 @@ class ApiClient
         $this->pubKey    = $pubKey;
         $this->timestamp = date('Y-m-d H:i:s');
 
-        $this->httpClient = new Client($apiUrl);
-        $this->httpClient->followLocation(true);
-        $this->httpClient->setConnectTimeout(Constants::CONNECT_TIMEOUT);
-        $this->httpClient->setOptions([
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => 2,
-            CURLOPT_AUTOREFERER    => true,
-            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_0
-        ]);
+        $this->httpClient = (new HttpClient($apiUrl))
+            ->followLocation(true)
+            ->setConnectTimeout(Constants::CONNECT_TIMEOUT)
+            ->setOptions([
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => 2,
+                CURLOPT_AUTOREFERER    => true,
+                CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_0
+            ]);
     }
 
     public function getAppId()
