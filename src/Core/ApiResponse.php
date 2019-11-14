@@ -40,7 +40,7 @@ class ApiResponse
         $this->certId  = $body[Constants::FN_CERT_ID];
 
         $rspData = $this->rspData;
-        if (!$rspData['response']) {
+        if (!isset($rspData['response'])) {
             $rspData['response'] = new \ArrayObject();
         }
         $this->signBlk = json_encode($rspData,JSON_UNESCAPED_UNICODE);
